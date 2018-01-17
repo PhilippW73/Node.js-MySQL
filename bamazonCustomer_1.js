@@ -21,8 +21,6 @@ console.log("*******************************************************************
 console.log("*********************** Welcome to Bamazon ****************************");
 console.log("***********************************************************************\n");
 
-
-
 function overview (){
   connection.query("SELECT * FROM products", function(err,results){
     for(var i=0; i<results.length; i++){
@@ -43,17 +41,22 @@ function checkId(results) {
         {
           name: "quantity",
           type: "input",
-          message: "Please enter the quantity"
+          message: "Please enter the quantity\n"
         }]).then(function(answer) {
             
-            var query = `SELECT stock_quantity FROM products WHERE item_id=${answer.productId}`;
-            connection.query(query, function(err, results){  
+            var query = `SELECT * FROM products WHERE item_id=${answer.productId}`;
+            //var query = `SELECT price FROM products WHERE item_id=${answer.productId}`;
+
+            connection.query(query, function(err, results){ 
+            //console.log(results); 
+              var price = results[0].price;
               if (err) {
                 return console.log("Error: ", err);
               }
               var stock_quantity = results[0].stock_quantity;
               var selectedProduct = answer.productId;
-              var price = results[0].price;
+              
+              //console.log("here is the price:........................" + price);
 
               if(answer.quantity > stock_quantity) {
                 console.log("Sorry, insufficient stock")
@@ -61,15 +64,19 @@ function checkId(results) {
                 checkId();
               } else {
                   var newQuantity = stock_quantity - answer.quantity
-              //console.log(newQuantity);
+                  //console.log(newQuantity);
             
                   var purchaseCost = parseInt(answer.quantity) * price;
+                  //console.log("price......" + price);
+                  //console.log("here is the cost:........................" + purchaseCost);
 
+                  console.log('\n');
                   console.log("Thanks");
                   console.log("Your Purchase: ");
-                  console.log("Product ID: " + answer.productId + "||" + "and" + "||" + "Quantity: " + answer.quantity);
+                  console.log("Product ID: " + answer.productId + "\t and \t" + "Quantity: " + answer.quantity);
+                  console.log("Total Costs: " + purchaseCost);
                   console.log("\n")
-                  console.log("Updating all quantities\n");
+                  console.log("Updatied quantities\n");
                   
                   connection.query("UPDATE products SET ? WHERE ?", 
                         [{
@@ -80,12 +87,16 @@ function checkId(results) {
                         }], 
 
                           function(err, results) {
-                          if (err) throw err;
-                          console.log("Your purchase is " + purchaseCost + ". Would you like to buy something else?\n");
+                          if (err) {
+                          return console.log("Error: ", err);
+                          }
+                          //console.log("\n");
+                          //console.log("Your purchase is $ " + purchaseCost + ". Would you like to buy something else?\n");
+                          //console.log("\n");
                           overview();
                           }
                         );
-            }
+                }
       });
   });
 };
