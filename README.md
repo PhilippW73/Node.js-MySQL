@@ -1,7 +1,7 @@
 # Node.js-MySQL
 
-##**Files:**	(1) - bamazonCustomer_1.js (file to start bamazon in terminal)
-				(2) - homework.js
+##**Files:**	(1) - bamazonCustomer_1.js (file to start bamazon in terminal)"\n"
+				(2) - homework.js\n
 		
 		
 ##**Json:**  	(1) - package-lock.json
