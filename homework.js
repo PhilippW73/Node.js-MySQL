@@ -1,35 +1,15 @@
 
-DROP DATABASE IF EXISTS bamazon;
-CREATE DATABASE bamazon;
-USE bamazon;
+CREATE DATABASE bamazon_1;
+USE bamazon_1;
 CREATE TABLE products(
   item_id INTEGER(11) AUTO_INCREMENT NOT NULL,
   product_name VARCHAR(30) NOT NULL,
   department_name VARCHAR(30) NOT NULL,
   price INTEGER(10),
-  stock_quantity INTEGER(10)
+  stock_quantity INTEGER(10),
+  PRIMARY KEY (item_id)
   );
 
-
-
-DROP DATABASE IF EXISTS greatbuy_db;
-CREATE DATABASE greatbuy_db;
-USE greatbuy_db;
-
-CREATE TABLE products(
-  id INTEGER(11) AUTO_INCREMENT NOT NULL,
-  name VARCHAR(50),
-  minBid INTEGER(10),
-  category VARCHAR(50),
-  PRIMARY KEY (id)
-);
-
-
-INSERT INTO products (name, minBid, category)
-VALUES ("MacBook Air", 500, "Electronics");
-
-INSERT INTO products (name, minBid, category)
-VALUES ("iPhone X", 400, "Electronics");
 
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
